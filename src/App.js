@@ -1,63 +1,43 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import _ from 'lodash';
+import { connect } from 'react-redux';
+import { login, sendMessage } from './reducers';
 
-import { login, hear, join, say } from './chat'
+class Message extends Component {
 
-class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: '', message: '' };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleMessageChange = this.handleMessageChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleSend = this.handleSend.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.send = this.send.bind(this);
   }
 
-  handleClick() {
-    login(this.state.name, this.state.name)
-      .then(({ connection, user }) => {
-        join(connection)
-          .then(channel =>
-            this.channel = channel
-          )
-        hear(connection, (message, channel) => {
-          console.log(message, channel)
-        })
-      })
+  onChange(event) {
+    this.setState({
+      value: event.target.value
+    });
   }
 
-  handleSend() {
-    say(this.channel, this.state.message)
-  }
-
-  handleChange(event) {
-    this.setState({ name: event.target.value });
-  }
-  handleMessageChange(event) {
-    this.setState({ message: event.target.value });
+  send() {
+    this.props.sendMessage(this.state.value || '');
   }
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Star Wars Chat</h1>
-        </header>
-        <p>
-          <label htmlFor="nickname">nickname </label>
-          <input id="nickname" value={this.state.name} onChange={this.handleChange} type="text" />
-          <button onClick={this.handleClick}>login</button>
-        </p>
-        <p>
-          <label htmlFor="message">message </label>
-          <input id="message" value={this.state.message} onChange={this.handleMessageChange} type="text"></input>
-          <button onClick={this.handleSend}>send</button>
-        </p>
+      <div>
+      <textarea onChange={this.onChange}/>
+      <button onClick={this.send}>Send</button>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+function App(props) {
+  return (
+    <div>
+      <button onClick={() => props.login('foo', 'bar') }>Login</button>
+      <Message sendMessage={props.sendMessage} />
+    </div>
+  )
+}
+
+export default connect(_.identity, {login, sendMessage})(App);
