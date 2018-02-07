@@ -2,6 +2,25 @@ import React from 'react';
 import styles from 'styled-components';
 
 const MessageContainer = styles.div`
+  overflow: auto;
+`;
+
+const SubText = styles.div`
+  font-size: 10px;
+  color: #bbb;
+  display: inline-block;
+  padding: 5px;
+`;
+
+const UserName = SubText.extend`
+
+`;
+
+const Time = SubText.extend`
+
+`;
+
+const Body = styles.div`
   margin: 0 0 0.5em;
   border-radius: 1em;
   padding: 0.5em 1em;
@@ -11,7 +30,7 @@ const MessageContainer = styles.div`
   position: relative;
 `;
 
-const MessageSelf = MessageContainer.extend`
+const BodySelf = Body.extend`
   float: right;
   background-color: #1289fe;
   color: white;
@@ -27,9 +46,9 @@ const MessageSelf = MessageContainer.extend`
     border-bottom-left-radius: 1em 0.5em;
 `;
 
-const MessageOther = MessageContainer.extend`
+const BodyOther = Body.extend`
   float: left;
-      
+        
   &::after {
     content: "";
     position: absolute;
@@ -41,28 +60,18 @@ const MessageOther = MessageContainer.extend`
     border-bottom-right-radius: 1em 0.5em;
 `;
 
-const UserName = styles.div`
-
-`;
-
-const Time = styles.div`
-
-`;
-
-const Body = styles.div`
-
-`;
-
 export default ({ userName, time, text, isSelf }) => {
-  const messageContent = [
-    <UserName>{userName}</UserName>,
-    <Time>{time}</Time>,
-    <Body>{text}</Body>
-  ];
+  const body = isSelf ? <BodySelf>{text}</BodySelf> : <BodyOther>{text}</BodyOther>;
 
-  if (isSelf) {
-    return <MessageSelf>{messageContent}</MessageSelf>;
-  } else {
-    return <MessageOther>{messageContent}</MessageOther>;
-  }
+  return (
+    <MessageContainer>
+      <div>
+        <span style={isSelf ? { float: 'right' } : {}}>
+          <UserName>{userName}</UserName>
+          <Time>{time}</Time>
+        </span>
+      </div>
+      {body}
+    </MessageContainer>
+  );
 };
