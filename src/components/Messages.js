@@ -10,20 +10,16 @@ const MessagesContainer = styles.div`
   background: white;
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 20px auto;
-  max-width: 320px;
-  border: 1px solid gray;
   overflow: auto;
   padding: 20px;
   border-radius: 10px;
 `;
 
-class Messages extends Component {
-  render() {
-    console.log(this.props.messages);
-    const messages = _.map(this.props.messages, ({ text, userId, time }) => {
-      const userName = this.props.users[userId].name;
-      const formattedTime = moment(time).format('LT');
-      const isSelf = this.props.self.userId === userId;
+export default function(props) {
+  const messages = _.map(props.messages, ({ text, userId, time }) => {
+    const userName = props.users[userId].name;
+    const formattedTime = moment(time).format('LT');
+    const isSelf = props.self.userId === userId;
       return (
         <Message 
           text={text} 
@@ -33,12 +29,9 @@ class Messages extends Component {
       );
     });
 
-    return (
-      <MessagesContainer>
-        {messages}
-      </MessagesContainer>
-    );
-  }
+  return (
+    <MessagesContainer>
+      {messages}
+    </MessagesContainer>
+  );
 }
-
-export default connect(state => state)(Messages);
