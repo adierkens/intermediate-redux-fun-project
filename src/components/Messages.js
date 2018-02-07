@@ -8,6 +8,15 @@ import Message from './Message';
 import stateMock from '../stateMock';
 
 const MessagesContainer = styles.div`
+  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: white;
+  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 20px auto;
+  max-width: 320px;
+  border: 1px solid gray;
+  overflow: auto;
+  padding: 20px;
+  border-radius: 10px;
 `;
 
 class Messages extends Component {
@@ -34,4 +43,4 @@ class Messages extends Component {
   }
 }
 
-export default connect(state => stateMock)(Messages);
+export default connect(state => state)(Messages);

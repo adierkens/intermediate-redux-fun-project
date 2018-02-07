@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import Messages from './components/Messages';
 import { login, sendMessage } from './reducers';
 
 class Message extends Component {
@@ -37,9 +38,7 @@ function App(props) {
     <div>
       <button onClick={() => props.login('foo', 'bar') }>Login</button>
       <Message sendMessage={props.sendMessage} />
-      {_.map(props.messages, msg => {
-        return <div key={msg.id}>{msg.message}</div>
-      })}
+      <Messages />
     </div>
   )
 }
