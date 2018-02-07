@@ -50,12 +50,13 @@ export default class Login extends Component {
 
       <MuiThemeProvider muiTheme={getMuiTheme(baseTheme)}>
         <Background>
-
-          <Container>
-            <Logo />
-            <TextField onChange={this.onChange} hintText="Username" underlineFocusStyle={{borderColor:'#1289fe'}}/>
-            <RaisedButton style={{width: '256px', marginTop: '10px'}} label="Login" onClick={() => { this.props.login(this.username) }}/>
-          </Container>
+          <Wrapper>
+            <Container>
+              <Logo />
+              <TextField onChange={this.onChange} hintText="Username" underlineFocusStyle={{borderColor:'#1289fe'}}/>
+              <RaisedButton style={{width: '256px', marginTop: '10px'}} label="Login" onClick={() => { this.props.login(this.username) }}/>
+            </Container>
+          </Wrapper>
         </Background>
       </MuiThemeProvider>
     );
