@@ -43,4 +43,4 @@ class Messages extends Component {
   }
 }
 
-export default connect(state => state)(Messages);
+export default connect(state => stateMock)(Messages);
