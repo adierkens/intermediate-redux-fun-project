@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const SendButton = styled.button`
     width: 50px;
     background: transparent;
-    color: #00E34D;
+    color: #1289fe;
     font-weight: 700;
     text-align: right;
     float: left;

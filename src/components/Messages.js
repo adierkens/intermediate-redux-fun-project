@@ -8,7 +8,6 @@ import Message from './Message';
 const MessagesContainer = styles.div`
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: white;
-  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 20px auto;
   overflow: auto;
   padding: 20px;
@@ -17,17 +16,17 @@ const MessagesContainer = styles.div`
 
 export default function(props) {
   const messages = _.map(props.messages, ({ text, userId, time }) => {
-    const userName = props.users[userId].name;
-    const formattedTime = moment(time).format('LT');
-    const isSelf = props.self.userId === userId;
-      return (
-        <Message 
-          text={text} 
-          userName={userName} 
-          time={formattedTime} 
-          isSelf={isSelf} />
-      );
-    });
+  const userName = props.users[userId].name;
+  const formattedTime = moment(time).format('LT');
+  const isSelf = props.self.userId === userId;
+    return (
+      <Message 
+        text={text} 
+        userName={userName} 
+        time={formattedTime} 
+        isSelf={isSelf} />
+    );
+  });
 
   return (
     <MessagesContainer>

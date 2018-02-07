@@ -3,12 +3,13 @@ import _ from 'lodash';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-    background-color: lightgray;
     min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 10px
+    padding-bottom: 10px;
+    border-bottom: 1px solid;
+    border-color: lightgray;
 `;
 
 const Avatar = styled.img`
