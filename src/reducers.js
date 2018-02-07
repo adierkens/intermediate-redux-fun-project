@@ -109,11 +109,11 @@ export default function (oldState = {}, action) {
             const newMessages = timm.addLast(oldState.messages || [], normalizeMessage(action.msg));
 
             // Update the users last activity
-            const senderID = action.msg.sender.id;
+            const userId = action.msg._sender.userId;
             const oldUsers = oldState.users || {};
-            const user = { id: senderID, lastActivity: action.msg.timestamp };
+            const user = { userId, lastActivityTime: action.msg.createdAt, name: action.msg._sender.nickname };
         
-            const newUsers = timm.set(oldUsers, senderID, user);
+            const newUsers = timm.set(oldUsers, userId, user);
             let state = timm.set(oldState, 'messages', newMessages);
             state = timm.set(state, 'users', newUsers);    
             return state;
