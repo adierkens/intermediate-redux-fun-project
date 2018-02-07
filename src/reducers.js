@@ -48,16 +48,19 @@ export function logout() {
 
 }
 
-export function login(id, name) {
+export function login(name) {
+    const id = String(Math.random() * 100000);
     return dispatch => {
         chatLogin(id, name).then(({ connection, user }) => {
             join(connection).then(channel => {
                 _channel = channel;
                 dispatch({
                     type: ACTIONS.LOGGED_IN,
-                    id,
-                    name,
-                    timestamp: Date.now()
+                    value: {
+                        userId: id,
+                        name,
+                        loggedIn: Date.now()
+                    }
                 });
             });
 
@@ -90,28 +93,35 @@ function normalizeMessage(msg) {
     }
 }
 
+
 export default function (oldState = {}, action) {
     switch(action.type) {
+        case ACTIONS.LOGGED_IN:
+            const selfUser = {
+                name: action.value.name,
+                lastActivityTime: Date.now()
+            }
+            
+            const _oldUsers = oldState.users || {};
+            const _newUsers = timm.set(_oldUsers, action.value.userId, selfUser);
+            return timm.set(timm.set(oldState, 'users', _newUsers), 'self', action.value);
         case ACTIONS.ON_MSG:
             // Add the msg to the queue
             const newMessages = timm.addLast(oldState.messages || [], normalizeMessage(action.msg));
 
             // Update the users last activity
-            const senderID = action.msg.sender.id;
+            const userId = action.msg._sender.userId;
             const oldUsers = oldState.users || {};
-            const user = { id: senderID, lastActivity: action.msg.timestamp };
+            const user = { userId, lastActivityTime: action.msg.createdAt, name: action.msg._sender.nickname };
         
-            const newUsers = timm.set(oldUsers, senderID, user);
+            const newUsers = timm.set(oldUsers, userId, user);
             let state = timm.set(oldState, 'messages', newMessages);
             state = timm.set(state, 'users', newUsers);    
-
             return state;
         case ACTIONS.ON_SELF_MSG:
-            const self = oldState.self;
-
             const msg = {
                 text: action.value,
-                userId: self.userId,
+                userId: oldState.self.userId,
                 time: Date.now(),
                 messageId: String(Math.random() * 100000)
             }

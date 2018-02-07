@@ -36,7 +36,7 @@ function App(props) {
   console.log('props', props);
   return (
     <div>
-      <button onClick={() => props.login('foo', 'bar') }>Login</button>
+      <button onClick={() => props.login('bar') }>Login</button>
       <Message sendMessage={props.sendMessage} />
       <Messages />
     </div>
