@@ -107,12 +107,13 @@ export default function (oldState = {}, action) {
 
             return state;
         case ACTIONS.ON_SELF_MSG:
-
             const self = oldState.self;
 
             const msg = {
-                message: action.value,
-                _sender: self
+                text: action.value,
+                userId: self.userId,
+                time: Date.now(),
+                messageId: String(Math.random() * 100000)
             }
 
             const _newMessages = timm.addLast(oldState.messages || [], msg);
