@@ -7,20 +7,22 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const Background = styles.div`
-  width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #e0f1f9;
-  padding: 20px;
+`;
+
+const Wrapper = styles.div`
+  width: 358px;
+  height: 358px;
+  margin: 30px auto;
 `;
 
 const Container = styles.div`
   background-color: white;
   width: 256px;
-  padding: 40px;
   border-radius: 40px;
-  opacity: 0.95;
+  padding: 50px;
+  border: 1px solid #bbb;
 `;
 
 const Logo = styles.div`
@@ -30,18 +32,6 @@ const Logo = styles.div`
   width: 100px;
   height: 100px;
   margin: 0 auto;
-`;
-
-const Button = styles.button`
-  width: 212px;
-  padding: 5px 20px;
-  font-weight: 400;
-  font-size: 14px;
-  color: #9d9e9e;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 1);
-  background: #fff;
-  border: 1px solid #fff;
-  border-radius: 0 0 3px 3px;
 `;
 
 export default class Login extends Component {
@@ -60,9 +50,10 @@ export default class Login extends Component {
 
       <MuiThemeProvider muiTheme={getMuiTheme(baseTheme)}>
         <Background>
+
           <Container>
             <Logo />
-            <TextField onChange={this.onChange} hintText="Username" />
+            <TextField onChange={this.onChange} hintText="Username" underlineFocusStyle={{borderColor:'#1289fe'}}/>
             <RaisedButton style={{width: '256px', marginTop: '10px'}} label="Login" onClick={() => { this.props.login(this.username) }}/>
           </Container>
         </Background>
