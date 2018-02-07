@@ -62,7 +62,7 @@ export default class Login extends Component {
         <Background>
           <Container>
             <Logo />
-            <TextField hintText="Username" />
+            <TextField onChange={this.onChange} hintText="Username" />
             <RaisedButton style={{width: '256px', marginTop: '10px'}} label="Login" onClick={() => { this.props.login(this.username) }}/>
           </Container>
         </Background>

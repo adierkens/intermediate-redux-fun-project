@@ -24,8 +24,6 @@ const AvatarWrapper = styled.div`
 `;
 
 function User(props) {
-    console.log('rendering user', props);
-
     return (
         <AvatarWrapper>
             <Avatar src={`http://api.adorable.io/avatars/${Math.floor(Math.random() * 10000)}/asdf.png`} />
