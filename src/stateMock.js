@@ -26,17 +26,17 @@ export default {
       messageId: 1,
       userId: 1,
       text: 'dfas asdf asdf asdfasda',
-      timeSent: 1518024645
+      time: 1518024645
     }, {
       messageId: 2,
       userId: 2,
       text: 'disc golf rools',
-      timeSent: 1518024646
+      time: 1518024646
     }, {
       messageId: 3,
       userId: 4,
       text: 'aaaaaaaaaahhhhh',
-      timeSent: 1518024647
+      time: 1518024647
     }
   ]
 };
