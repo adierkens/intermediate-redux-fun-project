@@ -53,7 +53,7 @@ export default class Login extends Component {
           <Wrapper>
             <Container>
               <Logo/>
-              <TextField hintText="Username" />
+              <TextField hintText="Username" underlineFocusStyle={{borderColor:'#1289fe'}} />
               <RaisedButton style={{width: '100%', marginTop: '10px'}} label="Login" onClick={() => { this.props.login(this.username) }}/>
             </Container>
           </Wrapper>
