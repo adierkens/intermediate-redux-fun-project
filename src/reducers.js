@@ -44,6 +44,10 @@ function createSelfMessage(message) {
     }
 }
 
+export function logout() {
+
+}
+
 export function login(id, name) {
     return dispatch => {
         chatLogin(id, name).then(({ connection, user }) => {
@@ -76,11 +80,21 @@ export function sendMessage(message) {
     }
 }
 
+
+function normalizeMessage(msg) {
+    return {
+        messageId: msg.messageId,
+        userId: msg._sender.userId,
+        text: msg.message,
+        time: msg.createdAt
+    }
+}
+
 export default function (oldState = {}, action) {
     switch(action.type) {
         case ACTIONS.ON_MSG:
             // Add the msg to the queue
-            const newMessages = timm.addLast(oldState.messages || [], action.msg);
+            const newMessages = timm.addLast(oldState.messages || [], normalizeMessage(action.msg));
 
             // Update the users last activity
             const senderID = action.msg.sender.id;
