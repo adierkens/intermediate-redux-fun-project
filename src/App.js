@@ -8,7 +8,6 @@ import Bar from './components/Bar';
 import Banner from './components/Banner';
 import styled from 'styled-components';
 
-
 const Wrapped = styled.div`
   display: flex;
   flex-direction: column;
@@ -45,7 +44,7 @@ class App extends React.Component {
       <Wrapped>
         <Banner users={props.users} />
         <MessagesWrapper id='messages-wrapper'>
-          <Messages {...props}  ref={r => this.messages = r}/>
+          <Messages {...props}/>
         </MessagesWrapper>
         <Bar sendMessage={props.sendMessage} />
       </Wrapped>

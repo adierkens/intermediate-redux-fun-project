@@ -40,6 +40,7 @@ export default class Bar extends React.Component {
         super(props);
         this.onBlur = this.onBlur.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
+        this.onKeyDown = this.onKeyDown.bind(this);
     }
 
     onBlur(event) {
@@ -47,6 +48,12 @@ export default class Bar extends React.Component {
             value: event.target.value
         });
     } 
+
+    onKeyDown(event) {
+        if (event.key === 'Enter') {
+            this.props.sendMessage(event.target.value);
+        }
+    }
 
     sendMessage() {
         if (this.state.value && this.props.sendMessage) {
@@ -57,7 +64,7 @@ export default class Bar extends React.Component {
     render() {
         return (
             <Wrapper>
-                <StyledInput onBlur={this.onBlur} placeholder='Text Message'/>
+                <StyledInput onKeyDown={this.onKeyDown} onBlur={this.onBlur} placeholder='Text Message'/>
                 <SendButton onClick={this.sendMessage}>Send</SendButton>
             </Wrapper>
         )
