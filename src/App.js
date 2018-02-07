@@ -20,7 +20,8 @@ const Wrapped = styled.div`
 `;
 
 const MessagesWrapper = styled.div`
-  flex: 1
+  flex: 1;
+  overflow-y: scroll;
 `;
 
 function App(props) {

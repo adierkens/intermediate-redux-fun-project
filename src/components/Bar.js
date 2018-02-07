@@ -16,9 +16,10 @@ const SendButton = styled.button`
     }
 `;
 
-const StyledInput = styled.input`\
+const StyledInput = styled.input`
+    line-height: 24px;
     flex: 1;
-    font: 400 13px 'Open Sans', sans-serif;
+    font: 400 'Open Sans', sans-serif;
     padding-left: 10px;
     border-radius: 20px;
     border: 1px solid lightgray;
@@ -26,6 +27,7 @@ const StyledInput = styled.input`\
         outline: none;
     }
 `;
+
 const Wrapper = styled.div`
     display: flex;
     padding: 20px;
