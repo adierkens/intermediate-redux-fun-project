@@ -32,10 +32,14 @@ class Message extends Component {
 }
 
 function App(props) {
+  console.log('props', props);
   return (
     <div>
       <button onClick={() => props.login('foo', 'bar') }>Login</button>
       <Message sendMessage={props.sendMessage} />
+      {_.map(props.messages, msg => {
+        return <div key={msg.id}>{msg.message}</div>
+      })}
     </div>
   )
 }

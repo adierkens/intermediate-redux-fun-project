@@ -10,6 +10,7 @@ const SELF_ID = Symbol('self');
 const ACTIONS = {
     SEND_MSG: 'sendMsg',
     ON_MSG: 'onMsg',
+    ON_SELF_MSG: 'onSelfMsg',
     LOGIN: 'login',
     LOGGED_IN: 'loggedIn'
 }
@@ -36,13 +37,11 @@ function createMessageReceiveAction(msg) {
     }
 }
 
-function createSelfMessage(message, self) {
-    return createMessageReceiveAction({
-        message,
-        sender: {
-           id: SELF_ID
-        }
-    });
+function createSelfMessage(message) {
+    return {
+        type: ACTIONS.ON_SELF_MSG,
+        value: message
+    }
 }
 
 export function login(id, name) {
@@ -67,7 +66,6 @@ export function login(id, name) {
 
 export function sendMessage(message) {
     return (dispatch) => {
-        
         if (!_channel) {
             console.error('You must be loggedin to send a message');
             return;
@@ -80,8 +78,6 @@ export function sendMessage(message) {
 
 export default function (oldState = {}, action) {
     switch(action.type) {
-        case ACTIONS.SEND_MSG:
-            return oldState;
         case ACTIONS.ON_MSG:
             // Add the msg to the queue
             const newMessages = timm.addLast(oldState.messages || [], action.msg);
@@ -96,6 +92,17 @@ export default function (oldState = {}, action) {
             state = timm.set(state, 'users', newUsers);    
 
             return state;
+        case ACTIONS.ON_SELF_MSG:
+
+            const self = oldState.self;
+
+            const msg = {
+                message: action.value,
+                _sender: self
+            }
+
+            const _newMessages = timm.addLast(oldState.messages || [], msg);
+            return timm.set(oldState, 'messages', _newMessages);
         default:
             return oldState;
     }
