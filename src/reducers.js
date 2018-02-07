@@ -48,7 +48,8 @@ export function logout() {
 
 }
 
-export function login(id, name) {
+export function login(name) {
+    const id = String(Math.random() * 100000);
     return dispatch => {
         chatLogin(id, name).then(({ connection, user }) => {
             join(connection).then(channel => {
