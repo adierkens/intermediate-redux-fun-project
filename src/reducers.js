@@ -55,9 +55,11 @@ export function login(id, name) {
                 _channel = channel;
                 dispatch({
                     type: ACTIONS.LOGGED_IN,
-                    id,
-                    name,
-                    timestamp: Date.now()
+                    value: {
+                        userId: id,
+                        name,
+                        loggedIn: Date.now()
+                    }
                 });
             });
 
@@ -90,8 +92,18 @@ function normalizeMessage(msg) {
     }
 }
 
+
 export default function (oldState = {}, action) {
     switch(action.type) {
+        case ACTIONS.LOGGED_IN:
+            const selfUser = {
+                name: action.value.name,
+                lastActivityTime: Date.now()
+            }
+            
+            const _oldUsers = oldState.users || {};
+            const _newUsers = timm.set(_oldUsers, action.value.userId, selfUser);
+            return timm.set(timm.set(oldState, 'users', _newUsers), 'self', action.value);
         case ACTIONS.ON_MSG:
             // Add the msg to the queue
             const newMessages = timm.addLast(oldState.messages || [], normalizeMessage(action.msg));
@@ -104,14 +116,11 @@ export default function (oldState = {}, action) {
             const newUsers = timm.set(oldUsers, senderID, user);
             let state = timm.set(oldState, 'messages', newMessages);
             state = timm.set(state, 'users', newUsers);    
-
             return state;
         case ACTIONS.ON_SELF_MSG:
-            const self = oldState.self;
-
             const msg = {
                 text: action.value,
-                userId: self.userId,
+                userId: oldState.self.userId,
                 time: Date.now(),
                 messageId: String(Math.random() * 100000)
             }
