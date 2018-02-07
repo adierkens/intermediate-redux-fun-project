@@ -5,8 +5,6 @@ import _ from 'lodash';
 import moment from 'moment';
 import Message from './Message';
 
-import stateMock from '../stateMock';
-
 const MessagesContainer = styles.div`
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: white;
@@ -43,4 +41,4 @@ class Messages extends Component {
   }
 }
 
-export default connect(state => stateMock)(Messages);
+export default connect(state => state)(Messages);

@@ -2,42 +2,14 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import Messages from './components/Messages';
+import Login from './components/Login';
 import { login, sendMessage } from './reducers';
-
-class Message extends Component {
-
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-    this.send = this.send.bind(this);
-  }
-
-  onChange(event) {
-    this.setState({
-      value: event.target.value
-    });
-  }
-
-  send() {
-    this.props.sendMessage(this.state.value || '');
-  }
-
-  render() {
-    return (
-      <div>
-      <textarea onChange={this.onChange}/>
-      <button onClick={this.send}>Send</button>
-      </div>
-    )
-  }
-}
 
 function App(props) {
   console.log('props', props);
   return (
     <div>
-      <button onClick={() => props.login('bar') }>Login</button>
-      <Message sendMessage={props.sendMessage} />
+      <Login />
       <Messages />
     </div>
   )
